@@ -28,6 +28,7 @@ from datetime import datetime
 from random import randint
 import basic_scraper
 
+
 class Bash:
 
     def __init__(self):
@@ -52,7 +53,8 @@ class Bash:
         Popen(command.split(' '), cwd=self.led_example_directory_path, stdout=DEVNULL)
 
     def two_commands(self, one, two):
-        call('{} > /dev/null 2>&1 ; {} > /dev/null 2>&1'.format(one, two), cwd=self.led_example_directory_path, shell=True)
+        call('{} > /dev/null 2>&1 ; {} > /dev/null 2>&1'.format(one, two), cwd=self.led_example_directory_path,
+             shell=True)
 
     def kill_matrix(self):
         self._call(self.stop_matrix)
@@ -66,16 +68,18 @@ class Bash:
     def scrolling_text(self):
         self._call(self.text)
 
- #   def set_envir_var(self, name, data):
- #       self._call('{}={}'.format(name, data))
+    #   def set_envir_var(self, name, data):
+    #       self._call('{}={}'.format(name, data))
 
     def news_headlines(self, ENV_NAME, data):
         set_var = '{}=\"BBC: {}\"'.format(ENV_NAME, data)
         self.two_commands(set_var, self.scroll_news)
 
     def demo_number(self, number, time):
-        self._call('sudo ./demo -D{} -t{} --led-cols=64 --led-rows=32 --led-brightness=50 --led-slowdown-gpio=2 -m 45'.format(number,
-                                                                                                                time))
+        self._call(
+            'sudo ./demo -D{} -t{} --led-cols=64 --led-rows=32 --led-brightness=50 --led-slowdown-gpio=2 -m 45'.format(
+                number,
+                time))
 
 
 """
@@ -86,6 +90,7 @@ Clock offers user-specified default settings for the operation of an on-going cl
 class Clock(Bash):
     single_clock = 'sudo ./clock -f ../fonts/9x18B.bdf -d %-1I:%M_%p --led-cols=64 --led-slowdown-gpio=3 -y 7 '
     double_clock = 'sudo ./clock -f ../fonts/9x18B.bdf -d %I:%M%p --led-cols=64 --led-slowdown-gpio=3 -y 7 '
+
     # nice ASCII --->   » ‗ ┼
 
     def __init__(self):
@@ -161,14 +166,14 @@ class Clock(Bash):
         if len(self.headlines) != 0:
             try:
                 self.message.run_messages(' >>> '.join(self.headlines[0:5]))
-                del(self.headlines[0:5])
+                del (self.headlines[0:5])
             except:
                 self.update_headlines_and_run_messages()
         else:
             sekf.update_headlines_and_run_messages()
 
     def get_headlines(self):
-        self.headlines =  basic_scraper.get_headlines()
+        self.headlines = basic_scraper.get_headlines()
         return self.headlines
 
     def update_headlines_and_run_messages(self):
@@ -178,12 +183,10 @@ class Clock(Bash):
     def run_messages_without_headlines():
         pass
 
-
-
-# This method currently serves as main for running the clock/total based on time.
-# Bash.kill_matrix() is needed immediately after any clock display. All other matrix commands clear themselves after 1) time expiration 2) data served fully.
-# The clock is a continuous daemon that must be explicitly turned off before anything can be displayed. Failure to do so will result in a completely unresponsive/error-state matrix
-# the matrix requires atleast ~3 seconds of sleep between one command and one immediately afterwards
+    # This method currently serves as main for running the clock/total based on time.
+    # Bash.kill_matrix() is needed immediately after any clock display. All other matrix commands clear themselves after 1) time expiration 2) data served fully.
+    # The clock is a continuous daemon that must be explicitly turned off before anything can be displayed. Failure to do so will result in a completely unresponsive/error-state matrix
+    # the matrix requires atleast ~3 seconds of sleep between one command and one immediately afterwards
 
     def run_clock(self):
         try:
@@ -256,6 +259,7 @@ class Message(Bash):
     def news(self, headlines):
         self.news_headlines('NEWS', headlines)
 
+
 class Graphics(Bash):
     def __init__(self):
         super().__init__()
@@ -267,12 +271,15 @@ class Graphics(Bash):
 class Image:
     pass
 
+
 def get_current_hour_minute_second():
     now = datetime.now()
     return now.hour, now.minute, now.second
 
+
 def rand_color():
     return '-C {},{},{} -b 60'.format(randint(0, 255), randint(0, 255), randint(0, 255))
+
 
 def main():
     clock = Clock()
@@ -283,4 +290,3 @@ if __name__ == '__main__':
     main()
 else:
     print('Imported')
-

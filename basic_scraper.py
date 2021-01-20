@@ -32,6 +32,7 @@ class Parser(Http):
 
 class Output:
     def __init__(self):
+        # fill in parameter
         self.text = Parser().extract_text()
 
     def write_text_to_temp_file(self):
@@ -59,6 +60,7 @@ def get_headlines(news_source=None):
 
     else:
         return Parser(bbc, bbc_class).extract_text()
+
 
 def main():
     print('main module, main function is empty')

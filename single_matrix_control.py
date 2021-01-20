@@ -37,7 +37,8 @@ class Bash:
         self.scroll_weather = 'sudo ./scrolling-text-example $WEATHER -f ../fonts/peters_myfont.bdf --led-cols=64 ' \
                               '--led-slowdown-gpio=3 -y-5 -b50 -s2 -l2 -C50,127,168'
 
-        self.scroll_news = 'sudo ./scrolling-text-example $NEWS -f ../fonts/peters_myfont.bdf --led-pwm-bits=6 --led-cols=64 --led-slowdown-gpio=4 -B21,17,122 -C201,64,10 -y-5 -s2 -b60 -l1'
+        self.scroll_news = 'sudo ./scrolling-text-example $NEWS -f ../fonts/peters_myfont.bdf --led-pwm-bits=6 ' \
+                           '--led-cols=64 --led-slowdown-gpio=4 -B21,17,122 -C201,64,10 -y-5 -s2 -b60 -l1 '
 
         self.text = 'sudo ./scrolling-text-example 30 Minute Update! -f ../fonts/peters_myfont.bdf --led-cols=64 ' \
                     '--led-slowdown-gpio=2 -b 50 -s2 -y-4 -B200,10,53 -l2'
@@ -159,8 +160,8 @@ class Clock(Bash):
         self.set_clock(rand_color())
         self.set_sleep()
 
-    # set to display messages at the top of each hour during the day ---takes n headlines from main list to display, deletes after for continuous new headline ticker
-    # if it runsn through the total list - a new list is generated
+    # set to display messages at the top of each hour during the day ---takes n headlines from main list to display,
+    # deletes after for continuous new headline ticker if it runsn through the total list - a new list is generated
 
     def run_messages_with_headlines(self):
         if len(self.headlines) != 0:
@@ -183,10 +184,11 @@ class Clock(Bash):
     def run_messages_without_headlines():
         pass
 
-    # This method currently serves as main for running the clock/total based on time.
-    # Bash.kill_matrix() is needed immediately after any clock display. All other matrix commands clear themselves after 1) time expiration 2) data served fully.
-    # The clock is a continuous daemon that must be explicitly turned off before anything can be displayed. Failure to do so will result in a completely unresponsive/error-state matrix
-    # the matrix requires atleast ~3 seconds of sleep between one command and one immediately afterwards
+    # This method currently serves as main for running the clock/total based on time. Bash.kill_matrix() is needed
+    # immediately after any clock display. All other matrix commands clear themselves after 1) time expiration 2)
+    # data served fully. The clock is a continuous daemon that must be explicitly turned off before anything can be
+    # displayed. Failure to do so will result in a completely unresponsive/error-state matrix the matrix requires
+    # at least ~3 seconds of sleep between one command and one immediately afterwards
 
     def run_clock(self):
         try:

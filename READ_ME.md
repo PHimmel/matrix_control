@@ -1,1 +1,4 @@
 # Matrix Control
+
+## Usage
+

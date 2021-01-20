@@ -129,7 +129,7 @@ class Clock(Bash):
         # total time until wake
         target_secs = self.target_minute * 60
 
-        # secconds between process start and wake (ULTIMATELY ROUNDS TO THE NEAREST MINUTE)
+        # seconds between process start and wake (ULTIMATELY ROUNDS TO THE NEAREST MINUTE)
         difference = target_secs - start_secs
 
         # sleep occurs in this method
@@ -171,7 +171,7 @@ class Clock(Bash):
             except:
                 self.update_headlines_and_run_messages()
         else:
-            sekf.update_headlines_and_run_messages()
+            self.update_headlines_and_run_messages()
 
     def get_headlines(self):
         self.headlines = basic_scraper.get_headlines()
@@ -213,7 +213,7 @@ class Clock(Bash):
                         continue
                 else:
                     if 1 < self.hour <= self.target_hour:
-                        self.night_clock
+                        self.night_clock()
                         continue
 
                 # day settings

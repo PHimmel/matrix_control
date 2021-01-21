@@ -31,9 +31,9 @@ class Parser(Http):
 
 
 class Output:
-    def __init__(self):
+    def __init__(self, link, class_filter):
         # fill in parameter
-        self.text = Parser().extract_text()
+        self.text = Parser(link, class_filter).extract_text()
 
     def write_text_to_temp_file(self):
         with open('/home/pi/Programs/Output/Documents/txt/news_headlines.txt', 'w') as file:
@@ -69,4 +69,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-

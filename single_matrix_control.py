@@ -175,7 +175,7 @@ class Clock(Bash):
         self.set_sleep()
 
     # set to display messages at the top of each hour during the day ---takes n headlines from main list to display,
-    # deletes after for continuous new headline ticker if it runsn through the total list - a new list is generated
+    # deletes after for continuous new headline ticker if it runs through the total list - a new list is generated
 
     def run_messages_with_headlines(self):
         if len(self.headlines) != 0:

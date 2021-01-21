@@ -45,7 +45,7 @@ class Bash:
 
         self.scroll_news = 'sudo ./scrolling-text-example $NEWS -f ../fonts/PETERS_FONTS/joystix_17.bdf ' \
                            '--led-pwm-bits=6 ' \
-                           '--led-cols=64 --led-rows=64 --led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -B21,17,' \
+                           '--led-cols=64 --led-rows=64 --led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -B21,17,'\
                            '122 -C201,64,10 -y24 -s6 -l1 '
 
         self.text = 'sudo ./scrolling-text-example 30 Minute Update! -f ../fonts/PETERS_FONTS/joystix_17.bdf ' \
@@ -99,23 +99,23 @@ Clock offers user-specified default settings for the operation of an on-going cl
 
 
 class Clock(Bash):
-    single_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d %-1I:%M:%S_%p --led-cols=64 --led-rows=64 '\
+    single_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d%-1I:%M:%S_%p --led-cols=64 --led-rows=64 '\
                    '--led-chain=4 --led-pwm-bits=6 --led-pwm-lsb-nanoseconds=100 ' \
                    '--led-parallel=2 --led-slowdown-gpio=8 -x15 -y27 '
-    double_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d %I:%M:%S_%p --led-cols=64 --led-rows=64 ' \
+    double_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d%I:%M:%S_%p --led-cols=64 --led-rows=64 '\
                    '--led-chain=4 --led-pwm-bits=6 --led-pwm-lsb-nanoseconds=100 ' \
                    '--led-parallel=2 --led-slowdown-gpio=8 -x15 -y27 '
 
     # nice ASCII --->   » ‗ ┼
 
-    def __init__(self):
+    def __init__(self, regular_night=False):
         super().__init__()
         self.message = Message()
         self.headlines = None
         self.target_minute = 15
         self.target_hour = 9
         self.hour, self.minute, self.second = get_current_hour_minute_second()
-        self.regular_night = False
+        self.regular_night = regular_night
 
     # sets clock formatting based on number of positions required
     def set_clock(self, settings):
@@ -181,7 +181,7 @@ class Clock(Bash):
         if len(self.headlines) != 0:
             try:
                 self.message.run_messages(' >>> '.join(self.headlines[0:5]))
-                del(self.headlines[0:5])
+                del (self.headlines[0:5])
             except:
                 self.update_headlines_and_run_messages()
         else:
@@ -294,10 +294,8 @@ def get_current_hour_minute_second():
 
 
 def rand_color():
-    return '-C {},{},{} -B {},{},{} -O 0,0,0 --led-brightness=60 '.format(randint(0, 255), randint(0, 255),
-                                                                          randint(0, 255),
-                                                                          randint(0, 255), randint(0, 255),
-                                                                          randint(0, 255))
+    return '-C {},{},{} -B {},{},{} -O 0,0,0 --led-brightness=70 ' \
+        .format(randint(0, 255), randint(0, 255), randint(0, 255), randint(0, 255), randint(0, 255), randint(0, 255))
 
 
 def main():

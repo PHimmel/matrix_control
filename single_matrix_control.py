@@ -35,13 +35,13 @@ class Bash:
         self.get_weather = 'WEATHER=$(curl wttr.in/13413?format="%C+%t+%hRH")'
 
         self.scroll_weather = 'sudo ./scrolling-text-example $WEATHER -f ../fonts/peters_myfont.bdf --led-cols=64 ' \
-                              '--led-slowdown-gpio=3 -y-5 -b50 -s2 -l2 -C50,127,168'
+                              '--led-slowdown-gpio=8 -y-5 -b50 -s2 -l2 -C50,127,168'
 
         self.scroll_news = 'sudo ./scrolling-text-example $NEWS -f ../fonts/peters_myfont.bdf --led-pwm-bits=6 ' \
-                           '--led-cols=64 --led-slowdown-gpio=4 -B21,17,122 -C201,64,10 -y-5 -s2 -b60 -l1 '
+                           '--led-cols=64 --led-slowdown-gpio=8 -B21,17,122 -C201,64,10 -y-5 -s2 -b60 -l1 '
 
         self.text = 'sudo ./scrolling-text-example 30 Minute Update! -f ../fonts/peters_myfont.bdf --led-cols=64 ' \
-                    '--led-slowdown-gpio=2 -b 50 -s2 -y-4 -B200,10,53 -l2'
+                    '--led-slowdown-gpio=8 -b 50 -s2 -y-4 -B200,10,53 -l2'
 
         self.stop_matrix = 'ps -ef|grep led | grep -v grep | awk \'{print $2}\'| sudo xargs kill'
 

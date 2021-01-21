@@ -226,7 +226,7 @@ class Clock(Bash):
                         self.night_clock()
                         continue
                 else:
-                    if 1 < self.hour <= self.target_hour:
+                    if 2 < self.hour <= self.target_hour:
                         self.night_clock()
                         continue
 
@@ -234,9 +234,11 @@ class Clock(Bash):
                 if self.minute % 30 == 0:
                     self.kill_matrix()
                     Graphics().demo_number(10, 20)
+                    self.kill_matrix()
                     self.run_messages_with_headlines()
                     # run specific demo for fixed period of time
                     Graphics().demo_number(9, 30)
+                    self.kill_matrix()
                     self.set_rand_color_clock_and_sleep()
                     continue
 

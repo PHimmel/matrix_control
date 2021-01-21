@@ -114,7 +114,7 @@ class Clock(Bash):
     def night_clock(self):
         self.kill_matrix()
 
-        self.set_clock('-C 115,50,122 -b 2')
+        self.set_clock('-C 115,50,122 --led-brightness=2 ')
         self.set_sleep_till_hour()
 
     def set_sleep(self):
@@ -281,7 +281,7 @@ def get_current_hour_minute_second():
 
 
 def rand_color():
-    return '-C {},{},{} -b 60'.format(randint(0, 255), randint(0, 255), randint(0, 255))
+    return '-C {},{},{} --led-brightness=60 '.format(randint(0, 255), randint(0, 255), randint(0, 255))
 
 
 def main():

@@ -175,8 +175,10 @@ class Clock(Bash):
     # deletes after for continuous new headline ticker if it runsn through the total list - a new list is generated
 
     def run_messages_with_headlines(self):
+        print('test')
         if len(self.headlines) != 0:
             try:
+                print('testtt')
                 self.message.run_messages(' >>> '.join(self.headlines[0:5]))
                 del (self.headlines[0:5])
             except:
@@ -192,7 +194,7 @@ class Clock(Bash):
         self.get_headlines()
         self.run_messages_with_headlines()
 
-    def run_messages_without_headlines():
+    def run_messages_without_headlines(self):
         pass
 
     # This method currently serves as main for running the clock/total based on time. Bash.kill_matrix() is needed
@@ -229,9 +231,7 @@ class Clock(Bash):
                         continue
 
                 # day settings
-                print('testeroo')
                 if self.minute % 30 != 0:
-                    print('test')
                     self.kill_matrix()
 
                     self.run_messages_with_headlines()

@@ -64,6 +64,7 @@ def get_headlines(news_source=None):
 
 def main():
     print('main module, main function is empty')
+    print(get_headlines())
 
 
 if __name__ == '__main__':

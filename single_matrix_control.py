@@ -39,12 +39,12 @@ class Bash:
                               '--led-rows=64 --led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -y-5 -b50 -s2 -l2 ' \
                               '-C50,127,168 '
 
-        self.scroll_news = 'sudo ./scrolling-text-example $NEWS -f ../fonts/PETERS_FONTS/joystix_17.bdf  ' \
+        self.scroll_news = 'sudo ./scrolling-text-example $NEWS -f ../fonts/PETERS_FONTS/joystix_17.bdf ' \
                            '--led-pwm-bits=6 ' \
                            '--led-cols=64 --led-rows=64 --led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -B21,17,' \
                            '122 -C201,64,10 -y-5 -s2 -b60 -l1 '
 
-        self.text = 'sudo ./scrolling-text-example 30 Minute Update! -f ../fonts/PETERS_FONTS/joystix_17.bdf  ' \
+        self.text = 'sudo ./scrolling-text-example 30 Minute Update! -f ../fonts/PETERS_FONTS/joystix_17.bdf ' \
                     '--led-cols=64 ' \
                     '--led-rows=64 --led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -b 50 -s2 -y-4 -B200,10,53 -l2'
 
@@ -54,7 +54,6 @@ class Bash:
                                           '/examples-api-use'
 
     def _call(self, command):
-        print('sdsd')
         call('{} > /dev/null 2>&1'.format(command), cwd=self.led_example_directory_path, shell=True)
 
     def _popen(self, command):
@@ -74,7 +73,6 @@ class Bash:
         self.two_commands(self.get_weather, self.scroll_weather)
 
     def scrolling_text(self):
-        print('tesss')
         self._call(self.text)
 
     #   def set_envir_var(self, name, data):

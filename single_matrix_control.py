@@ -91,10 +91,10 @@ Clock offers user-specified default settings for the operation of an on-going cl
 
 class Clock(Bash):
     single_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d %-1I:%M_%p --led-cols=64 --led-rows=64 ' \
-                   '--led-chain=4 ' \ 
+                   '--led-chain=4 ' \
                    '--led-parallel=2 --led-slowdown-gpio=8 -y 7 '
     double_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d %I:%M%p --led-cols=64 --led-rows=64 ' \
-                   '--led-chain=4 ' \ 
+                   '--led-chain=4 ' \
                    '--led-parallel=2 --led-slowdown-gpio=8 -y 7 '
 
     # nice ASCII --->   » ‗ ┼

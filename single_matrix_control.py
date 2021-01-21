@@ -189,7 +189,7 @@ class Clock(Bash):
 
     def get_headlines(self):
         self.headlines = basic_scraper.get_headlines()
-        return self.headlines
+        # return self.headlines
 
     def update_headlines_and_run_messages(self):
         self.get_headlines()

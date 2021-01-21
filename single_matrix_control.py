@@ -36,13 +36,13 @@ class Bash:
 
         self.scroll_weather = 'sudo ./scrolling-text-example $WEATHER -f ../fonts/PETERS_FONTS/joystix_17.bdf ' \
                               '--led-cols=64 ' \
-                              '--led-rows=64 --led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -y-5 -s2 -l2 ' \
+                              '--led-rows=64 --led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -y25 -s3 -l2 ' \
                               '-C50,127,168 '
 
         self.scroll_news = 'sudo ./scrolling-text-example $NEWS -f ../fonts/PETERS_FONTS/joystix_17.bdf ' \
                            '--led-pwm-bits=6 ' \
                            '--led-cols=64 --led-rows=64 --led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -B21,17,' \
-                           '122 -C201,64,10 -y24 -s3 -l1 '
+                           '122 -C201,64,10 -y24 -s4 -l1 '
 
         self.text = 'sudo ./scrolling-text-example 30 Minute Update! -f ../fonts/PETERS_FONTS/joystix_17.bdf ' \
                     '--led-cols=64 --led-pwm-bits=6 ' \
@@ -84,10 +84,10 @@ class Bash:
 
     def demo_number(self, number, time):
         self._call(
-            'sudo ./demo -D{} -t{} --led-cols=64 --led-rows=64 --led-brightness=50 '
-            '--led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -m 45'.format(
-                number,
-                time))
+            'sudo {}/demo -D{} -t{} --led-cols=64 --led-rows=64 --led-brightness=50 '
+            '--led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -m 45'.format(self.led_example_directory_path,
+                                                                                number,
+                                                                                time))
 
 
 """

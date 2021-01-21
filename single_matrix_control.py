@@ -215,6 +215,7 @@ class Clock(Bash):
                     self.set_clock(rand_color())
                     start = False
                     # self.set_first_sleep()
+                    self.kill_matrix()
                     continue
 
                 # night settings

@@ -20,6 +20,7 @@ NOTES NOT ON RPI VERSION:
 
     ### USE THE PYTHON BINDINGS TO BUILD OFF OF THE RBG LIBRARY!!!!
 
+There should be an easy way
 """
 
 from subprocess import call, Popen, DEVNULL
@@ -42,7 +43,7 @@ class Bash:
         self.scroll_news = 'sudo ./scrolling-text-example $NEWS -f ../fonts/PETERS_FONTS/joystix_17.bdf ' \
                            '--led-pwm-bits=6 ' \
                            '--led-cols=64 --led-rows=64 --led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -B21,17,' \
-                           '122 -C201,64,10 -y24 -s4 -l1 '
+                           '122 -C201,64,10 -y24 -s6 -l1 '
 
         self.text = 'sudo ./scrolling-text-example 30 Minute Update! -f ../fonts/PETERS_FONTS/joystix_17.bdf ' \
                     '--led-cols=64 --led-pwm-bits=6 ' \
@@ -53,8 +54,8 @@ class Bash:
         self.led_example_directory_path = '/home/pi/Matrix/ArduinoOnPc-FastLED-GFX-LEDMatrix/rpi-rgb-led-matrix' \
                                           '/examples-api-use'
 
-    def _call(self, command):
-        call('{} > /dev/null 2>&1'.format(command), cwd=self.led_example_directory_path, shell=True)
+    def _call(self, command): # > /dev/null 2>&1
+        call('{} '.format(command), cwd=self.led_example_directory_path, shell=True)
 
     def _popen(self, command):
         Popen(command.split(' '), cwd=self.led_example_directory_path, stdout=DEVNULL)
@@ -84,8 +85,8 @@ class Bash:
 
     def demo_number(self, number, time):
         self._call(
-            'sudo {}/demo -D{} -t{} --led-cols=64 --led-rows=64 --led-brightness=50 '
-            '--led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -m 45'.format(self.led_example_directory_path,
+            'sudo ./demo -D{} -t{} --led-cols=64 --led-rows=64 --led-brightness=50 '
+            '--led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -m 45'.format(
                                                                                 number,
                                                                                 time))
 
@@ -98,10 +99,10 @@ Clock offers user-specified default settings for the operation of an on-going cl
 class Clock(Bash):
     single_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d %-1I:%M_%p --led-cols=64 --led-rows=64 ' \
                    '--led-chain=4 ' \
-                   '--led-parallel=2 --led-slowdown-gpio=8 -y 7 '
+                   '--led-parallel=2 --led-slowdown-gpio=8 -x15 -y27 '
     double_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d %I:%M%p --led-cols=64 --led-rows=64 ' \
                    '--led-chain=4 ' \
-                   '--led-parallel=2 --led-slowdown-gpio=8 -y 7 '
+                   '--led-parallel=2 --led-slowdown-gpio=8 -x15 -y27 '
 
     # nice ASCII --->   » ‗ ┼
 

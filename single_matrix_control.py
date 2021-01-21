@@ -229,7 +229,9 @@ class Clock(Bash):
                         continue
 
                 # day settings
+                print('testeroo')
                 if self.minute % 30 != 0:
+                    print('test')
                     self.kill_matrix()
 
                     self.run_messages_with_headlines()

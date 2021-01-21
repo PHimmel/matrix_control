@@ -1,0 +1,5 @@
+A file for general improvement ideas.
+
+1. remove class/object attributes that are strings relating to bash commands
+make them globally accessible, and remove the myriad of redundancies.
+

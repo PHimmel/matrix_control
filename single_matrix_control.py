@@ -83,13 +83,13 @@ class Bash:
         set_var = '{}=\"BBC: {}\"'.format(ENV_NAME, data)
         self.two_commands(set_var, self.scroll_news)
 
-    def demo_number(self, number, time):
+    def demo_number(self, number):
         print('made it')
         self._call(
-            'sudo ./demo -D{} -t{} --led-cols=64 --led-rows=64 --led-brightness=50 '
+            'sudo ./demo -D{} --led-cols=64 --led-rows=64 --led-brightness=50 '
             '--led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -m 45'.format(
-                                                                                number,
-                                                                                time))
+                                                                                number
+                                                                                ))
 
 
 """
@@ -233,11 +233,13 @@ class Clock(Bash):
                 # day settings
                 if self.minute % 30 != 0:
                     self.kill_matrix()
-                    Graphics().demo_number(10, 40)
-
+                    Graphics().demo_number(10)
+                    sleep(30)
+                    self.kill_matrix()
                     self.run_messages_with_headlines()
                     # run specific demo for fixed period of time
-                    Graphics().demo_number(10, 40)
+                    Graphics().demo_number(10)
+                    sleep(30)
                     self.set_rand_color_clock_and_sleep()
                     continue
 
@@ -281,8 +283,8 @@ class Graphics(Bash):
     def __init__(self):
         super().__init__()
 
-    def demo(self, number, time):
-        self.demo_number(number, time)
+    def demo(self, number):
+        self.demo_number(number)
 
 
 class Image:

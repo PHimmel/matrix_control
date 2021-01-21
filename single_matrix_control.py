@@ -20,7 +20,7 @@ NOTES NOT ON RPI VERSION:
 
     ### USE THE PYTHON BINDINGS TO BUILD OFF OF THE RBG LIBRARY!!!!
 
-There should be an easy way
+todo --> There should be an easy way to adjust main, persistent values (ie. rpi_rgb flags, graphics, etc)
 """
 
 from subprocess import call, Popen, DEVNULL
@@ -54,8 +54,8 @@ class Bash:
         self.led_example_directory_path = '/home/pi/Matrix/ArduinoOnPc-FastLED-GFX-LEDMatrix/rpi-rgb-led-matrix' \
                                           '/examples-api-use'
 
-    def _call(self, command): # > /dev/null 2>&1
-        call('{} '.format(command), cwd=self.led_example_directory_path, shell=True)
+    def _call(self, command):
+        call('{} > /dev/null 2>&1'.format(command), cwd=self.led_example_directory_path, shell=True)
 
     def _popen(self, command):
         Popen(command.split(' '), cwd=self.led_example_directory_path, stdout=DEVNULL)
@@ -84,6 +84,7 @@ class Bash:
         self.two_commands(set_var, self.scroll_news)
 
     def demo_number(self, number, time):
+        print('made it')
         self._call(
             'sudo ./demo -D{} -t{} --led-cols=64 --led-rows=64 --led-brightness=50 '
             '--led-chain=4 --led-parallel=2 --led-slowdown-gpio=8 -m 45'.format(
@@ -232,6 +233,7 @@ class Clock(Bash):
                 # day settings
                 if self.minute % 30 != 0:
                     self.kill_matrix()
+                    Graphics().demo_number(10, 40)
 
                     self.run_messages_with_headlines()
                     # run specific demo for fixed period of time

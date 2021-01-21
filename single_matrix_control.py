@@ -21,6 +21,9 @@ NOTES NOT ON RPI VERSION:
     ### USE THE PYTHON BINDINGS TO BUILD OFF OF THE RBG LIBRARY!!!!
 
 todo --> There should be an easy way to adjust main, persistent values (ie. rpi_rgb flags, graphics, etc)
+todo --> otherwise it must be painstakingly done line-by-line :(
+todo --> values that are used globally should be MADE GLOBAL
+
 """
 
 from subprocess import call, Popen, DEVNULL
@@ -87,9 +90,7 @@ class Bash:
         self._call('bash -c \'sleep {} && sudo pkill -f demo\' &'.format(time))
         self._call(
             'sudo ./demo -D{} --led-cols=64 --led-rows=64 --led-brightness=50 --led-pwm-lsb-nanoseconds=100 '
-            '--led-chain=4 --led-pwm-bits=7 --led-parallel=2 --led-slowdown-gpio=8 -m 45'.format(
-                number
-            ))
+            '--led-chain=4 --led-pwm-bits=7 --led-parallel=2 --led-slowdown-gpio=8 -m 45'.format(number))
 
 
 """
@@ -98,13 +99,11 @@ Clock offers user-specified default settings for the operation of an on-going cl
 
 
 class Clock(Bash):
-    single_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d %-1I:%M:%S_%p --led-cols=64 ' \
-                   '--led-rows=64 ' \
-                   '--led-chain=4 --led-pwm-bits=7 --led-pwm-lsb-nanoseconds=80 ' \
+    single_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d %-1I:%M:%S_%p --led-cols=64 --led-rows=64 '\
+                   '--led-chain=4 --led-pwm-bits=6 --led-pwm-lsb-nanoseconds=90 ' \
                    '--led-parallel=2 --led-slowdown-gpio=8 -x15 -y27 '
-    double_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d %I:%M:%S_%p --led-cols=64 ' \
-                   '--led-rows=64 ' \
-                   '--led-chain=4 --led-pwm-bits=7 --led-pwm-lsb-nanoseconds=80 ' \
+    double_clock = 'sudo ./clock -f ../fonts/PETERS_FONTS/joystix_17.bdf -d %I:%M:%S_%p --led-cols=64 --led-rows=64 ' \
+                   '--led-chain=4 --led-pwm-bits=6 --led-pwm-lsb-nanoseconds=90 ' \
                    '--led-parallel=2 --led-slowdown-gpio=8 -x15 -y27 '
 
     # nice ASCII --->   » ‗ ┼
@@ -182,7 +181,7 @@ class Clock(Bash):
         if len(self.headlines) != 0:
             try:
                 self.message.run_messages(' >>> '.join(self.headlines[0:5]))
-                del (self.headlines[0:5])
+                del(self.headlines[0:5])
             except:
                 self.update_headlines_and_run_messages()
         else:

@@ -82,8 +82,8 @@ class Bash:
     #   def set_envir_var(self, name, data):
     #       self._call('{}={}'.format(name, data))
 
-    def news_headlines(self, ENV_NAME, data):
-        set_var = '{}=\"BBC: {}\"'.format(ENV_NAME, data)
+    def news_headlines(self, bash_env_name, data):
+        set_var = '{}=\"BBC: {}\"'.format(bash_env_name, data)
         self.two_commands(set_var, self.scroll_news)
 
     def demo_number(self, number, time):
@@ -159,7 +159,7 @@ class Clock(Bash):
         sleep(sleep_secs)
 
     def set_first_sleep(self):
-        minutes = [min for min in range(self.minute, self.minute + self.target_minute) if min % self.target_minute == 0]
+        minutes = [m for m in range(self.minute, self.minute + self.target_minute) if m % self.target_minute == 0]
 
         if int(minutes[0]) - 1 <= 0:
             minutes += self.target_minute
@@ -181,8 +181,8 @@ class Clock(Bash):
         if len(self.headlines) != 0:
             try:
                 self.message.run_messages(' >>> '.join(self.headlines[0:5]))
-                del (self.headlines[0:5])
-            except:
+                del(self.headlines[0:5])
+            except IndexError:
                 self.update_headlines_and_run_messages()
         else:
             self.update_headlines_and_run_messages()

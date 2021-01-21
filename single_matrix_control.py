@@ -45,7 +45,8 @@ class Bash:
 
         self.stop_matrix = 'ps -ef|grep led | grep -v grep | awk \'{print $2}\'| sudo xargs kill'
 
-        self.led_example_directory_path = '/home/pi/Programs/rpi-rgb-led-matrix/examples-api-use'
+        self.led_example_directory_path = '/home/pi/Matrix/ArduinoOnPc-FastLED-GFX-LEDMatrix/rpi-rgb-led-matrix' \
+                                          '/examples-api-use '
 
     def _call(self, command):
         call('{} > /dev/null 2>&1'.format(command), cwd=self.led_example_directory_path, shell=True)

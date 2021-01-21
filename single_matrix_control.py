@@ -214,7 +214,7 @@ class Clock(Bash):
                 if start is True:
                     self.set_clock(rand_color())
                     start = False
-                    self.set_first_sleep()
+                    # self.set_first_sleep()
                     continue
 
                 # night settings
@@ -228,7 +228,7 @@ class Clock(Bash):
                         continue
 
                 # day settings
-                if self.minute % 30 == 0:
+                if self.minute % 30 != 0:
                     self.kill_matrix()
 
                     self.run_messages_with_headlines()

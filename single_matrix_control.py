@@ -84,7 +84,6 @@ class Bash:
         self.two_commands(set_var, self.scroll_news)
 
     def demo_number(self, number, time):
-        print('made it')
         self._call('bash -c \'sleep {} && sudo pkill -f demo\' &'.format(time))
         self._call(
             'sudo ./demo -D{} --led-cols=64 --led-rows=64 --led-brightness=50 --led-pwm-lsb-nanoseconds=100 '

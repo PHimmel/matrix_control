@@ -175,10 +175,8 @@ class Clock(Bash):
     # deletes after for continuous new headline ticker if it runsn through the total list - a new list is generated
 
     def run_messages_with_headlines(self):
-        print('test')
         if len(self.headlines) != 0:
             try:
-                print('testtt')
                 self.message.run_messages(' >>> '.join(self.headlines[0:5]))
                 del (self.headlines[0:5])
             except:
@@ -262,6 +260,7 @@ class Message(Bash):
 
     # run_message is the 'main' method of Message.
     def run_messages(self, headlines):
+        print('testttttttt')
         self.new_hour()
         self.display_weather()
         self.news(headlines)

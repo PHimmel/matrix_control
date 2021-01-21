@@ -89,8 +89,8 @@ class Bash:
         self._call(
             'sudo ./demo -D{} --led-cols=64 --led-rows=64 --led-brightness=50 --led-pwm-lsb-nanoseconds=100 '
             '--led-chain=4 --led-pwm-bits=7 --led-parallel=2 --led-slowdown-gpio=8 -m 45'.format(
-                                                                                number
-                                                                                ))
+                number
+            ))
 
 
 """
@@ -217,8 +217,7 @@ class Clock(Bash):
                 if start is True:
                     self.set_clock(rand_color())
                     start = False
-                    # self.set_first_sleep()
-                    self.kill_matrix()
+                    self.set_first_sleep()
                     continue
 
                 # night settings
@@ -232,15 +231,12 @@ class Clock(Bash):
                         continue
 
                 # day settings
-                if self.minute % 30 != 0:
+                if self.minute % 30 == 0:
                     self.kill_matrix()
                     Graphics().demo_number(10, 20)
-                    sleep(30)
-                    self.kill_matrix()
                     self.run_messages_with_headlines()
                     # run specific demo for fixed period of time
-                    Graphics().demo_number(10, 20)
-                    sleep(30)
+                    Graphics().demo_number(9, 30)
                     self.set_rand_color_clock_and_sleep()
                     continue
 
@@ -298,7 +294,10 @@ def get_current_hour_minute_second():
 
 
 def rand_color():
-    return '-C {},{},{} --led-brightness=60 '.format(randint(0, 255), randint(0, 255), randint(0, 255))
+    return '-C {},{},{} -B {},{},{} -O 0,0,0 --led-brightness=60 '.format(randint(0, 255), randint(0, 255),
+                                                                          randint(0, 255),
+                                                                          randint(0, 255), randint(0, 255),
+                                                                          randint(0, 255))
 
 
 def main():

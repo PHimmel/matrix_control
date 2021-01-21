@@ -54,6 +54,7 @@ class Bash:
                                           '/examples-api-use'
 
     def _call(self, command):
+        print('sdsd')
         call('{} > /dev/null 2>&1'.format(command), cwd=self.led_example_directory_path, shell=True)
 
     def _popen(self, command):
@@ -73,6 +74,7 @@ class Bash:
         self.two_commands(self.get_weather, self.scroll_weather)
 
     def scrolling_text(self):
+        print('tesss')
         self._call(self.text)
 
     #   def set_envir_var(self, name, data):
@@ -260,7 +262,6 @@ class Message(Bash):
 
     # run_message is the 'main' method of Message.
     def run_messages(self, headlines):
-        print('testttttttt')
         self.new_hour()
         self.display_weather()
         self.news(headlines)

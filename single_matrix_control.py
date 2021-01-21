@@ -85,7 +85,7 @@ class Bash:
 
     def demo_number(self, number, time):
         print('made it')
-        self._popen('bash -c \'sleep {} && {}\' &'.format(time, self.stop_matrix))
+        self._popen('bash -c \'sleep {} && sudo pkill -f led\' &'.format(time))
         self._call(
             'sudo ./demo -D{} --led-cols=64 --led-rows=64 --led-brightness=50 --led-pwm-lsb-nanoseconds=100 '
             '--led-chain=4 --led-pwm-bits=7 --led-parallel=2 --led-slowdown-gpio=8 -m 45'.format(

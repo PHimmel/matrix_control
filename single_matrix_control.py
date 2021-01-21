@@ -53,8 +53,8 @@ class Bash:
         self.led_example_directory_path = '/home/pi/Matrix/ArduinoOnPc-FastLED-GFX-LEDMatrix/rpi-rgb-led-matrix' \
                                           '/examples-api-use'
 
-    def _call(self, command):
-        call('{} > /dev/null 2>&1'.format(command), cwd=self.led_example_directory_path, shell=True)
+    def _call(self, command): # > /dev/null 2>&1
+        call('{} '.format(command), cwd=self.led_example_directory_path, shell=True)
 
     def _popen(self, command):
         Popen(command.split(' '), cwd=self.led_example_directory_path, stdout=DEVNULL)

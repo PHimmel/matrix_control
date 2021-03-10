@@ -20,6 +20,7 @@ NOTES NOT ON RPI VERSION:
 
     ### USE THE PYTHON BINDINGS TO BUILD OFF OF THE RBG LIBRARY!!!!
     ### NOW IT IS LARGELY SHELL SCRIPT
+    ###
 
 todo --> There should be an easy way to adjust main, persistent values (ie. rpi_rgb flags, graphics, etc)
 todo --> otherwise it must be painstakingly done line-by-line :(

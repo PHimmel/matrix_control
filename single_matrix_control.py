@@ -82,7 +82,7 @@ class Bash:
         self._call(self.text)
 
     #   def set_envir_var(self, name, data):
-    #       self._call('{}={}'.format(name, data))
+    #   self._call('{}={}'.format(name, data))
 
     def news_headlines(self, bash_env_name, data):
         set_var = '{}=\"BBC: {}\"'.format(bash_env_name, data)

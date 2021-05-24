@@ -8,9 +8,14 @@ Can be easily adjusted based on user requirements.
 Three main classes:
 Bash
 Clock
-Image
+Graphics
 
 ## Usage
+Change inital global variables at the head of the main file to your specifications.
 
 ## Examples
-
+To run as a background daemon:
+lauch a terminal session;
+change to main project directory then;
+`nohup python3 single_matrix_control.py &`
+you are then free to close out the terminal

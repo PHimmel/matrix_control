@@ -32,6 +32,7 @@ from subprocess import call, Popen, DEVNULL
 from time import sleep
 from datetime import datetime
 from random import randint
+
 import basic_scraper
 
 # global variables

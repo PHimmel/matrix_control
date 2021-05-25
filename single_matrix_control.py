@@ -28,6 +28,8 @@ todo --> values that are used globally should be MADE GLOBAL
 
 """
 
+import sys
+import signal
 from subprocess import call, Popen, DEVNULL
 from os import popen
 from time import sleep
@@ -94,6 +96,7 @@ class Bash:
         self._call('bash -c \'sleep {} && sudo pkill -f demo\' &'.format(time))
         self._call('sudo ./demo -D{}{}-m 45'.format(number, matrix_settings[0:-60]))
 
+    # used for control of a solid state relay to power the display
     @staticmethod
     def power_supply():
         state = popen('gpio read 29').read()
@@ -306,6 +309,16 @@ class Image:
     pass
 
 
+class Terminate:
+
+    def __init__(self):
+        self.received = False
+        signal.signal(signal.SIGTERM, self.receive)
+
+    def receive(self):
+        self.received = True
+
+
 def get_current_hour_minute_second():
     now = datetime.now()
     return now.hour, now.minute, now.second
@@ -325,8 +338,16 @@ def rand_color():
 
 
 def main():
-    clock = Clock()
-    clock.run_clock()
+    terminate = Terminate()
+    while not terminate.received:
+        try:
+            clock = Clock()
+            clock.run_clock()
+        except TypeError or SystemExit:
+            popen('gpio write 29 0')
+            sys.exit()
+    popen('gpio write 29 0')
+    sys.exit()
 
 
 if __name__ == '__main__':

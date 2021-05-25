@@ -28,10 +28,10 @@ todo --> values that are used globally should be MADE GLOBAL
 
 """
 
-import sys
-import signal
+from signal import signal, SIGTERM
 from subprocess import call, Popen, DEVNULL
 from os import popen
+from sys import exit
 from time import sleep
 from datetime import datetime
 from random import randint
@@ -144,7 +144,7 @@ class Clock(Bash):
         self.kill_matrix()
         self.nightClock = True
 
-        self.set_clock('-C 115,50,122 --led-brightness=2 ')
+        self.set_clock('-C 115,50,122 --led-brightness=30 ')
         self.set_sleep_till_hour()
 
     def set_sleep(self):
@@ -180,7 +180,9 @@ class Clock(Bash):
         target_seconds = 60 - self.second
 
         slumber = (target_minutes - 1) * 60 + target_seconds
-        sleep(abs(slumber))
+        if slumber < 0:
+            slumber = target_seconds
+        sleep(slumber)
 
     def set_rand_color_clock_and_sleep(self):
         self.nightClock = False
@@ -313,7 +315,7 @@ class Terminate:
 
     def __init__(self):
         self.received = False
-        signal.signal(signal.SIGTERM, self.receive)
+        signal(SIGTERM, self.receive)
 
     def receive(self):
         self.received = True
@@ -339,7 +341,7 @@ def rand_color():
 
 def kill_power():
     popen('gpio write 29 0')
-    sys.exit()
+    exit()
 
 
 def main():

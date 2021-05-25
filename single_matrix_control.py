@@ -29,6 +29,7 @@ todo --> values that are used globally should be MADE GLOBAL
 """
 
 from subprocess import call, Popen, DEVNULL
+from os import popen
 from time import sleep
 from datetime import datetime
 from random import randint
@@ -55,6 +56,7 @@ class Bash:
 
         self.text = 'sudo ./{} 30 Minute Update! -s3 -y24 -B200,10,53 -l2{}'.format(text_cmd, matrix_settings)
 
+        self.stop_matrix = 'ps -ef|grep led | grep -v grep | awk \'{print $2}\'| sudo xargs kill'
         self.stop_matrix = 'ps -ef|grep led | grep -v grep | awk \'{print $2}\'| sudo xargs kill'
 
     @staticmethod
@@ -91,6 +93,13 @@ class Bash:
     def demo_number(self, number, time):
         self._call('bash -c \'sleep {} && sudo pkill -f demo\' &'.format(time))
         self._call('sudo ./demo -D{}{}-m 45'.format(number, matrix_settings[0:-60]))
+
+    @staticmethod
+    def power_supply():
+        state = popen('gpio read 29').read()
+        if state.strip() == '1':
+            return
+        popen('gpio mode 29 out ; gpio write 29 1')
 
 
 """
@@ -216,6 +225,9 @@ class Clock(Bash):
 
                 # initialization
                 if start is True:
+                    # check SMPS state ; if off ; then turn on
+                    Bash.power_supply()
+
                     self.set_clock(rand_color())
                     start = False
                     self.set_first_sleep()

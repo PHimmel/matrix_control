@@ -180,7 +180,7 @@ class Clock(Bash):
         target_seconds = 60 - self.second
 
         slumber = (target_minutes - 1) * 60 + target_seconds
-        sleep(slumber)
+        sleep(abs(slumber))
 
     def set_rand_color_clock_and_sleep(self):
         self.nightClock = False
@@ -337,17 +337,22 @@ def rand_color():
     return '-C {} -B {} -O 0,0,0 '.format(rand_num(), rand_num())
 
 
+def kill_power():
+    popen('gpio write 29 0')
+    sys.exit()
+
+
 def main():
     terminate = Terminate()
     while not terminate.received:
         try:
             clock = Clock()
             clock.run_clock()
-        except TypeError or SystemExit:
-            popen('gpio write 29 0')
-            sys.exit()
-    popen('gpio write 29 0')
-    sys.exit()
+        except TypeError:
+            kill_power()
+        finally:
+            kill_power()
+    kill_power()
 
 
 if __name__ == '__main__':

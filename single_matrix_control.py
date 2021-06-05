@@ -35,16 +35,20 @@ from sys import exit
 from time import sleep
 from datetime import datetime
 from random import randint
+import logging as log
 
 import basic_scraper
 
 # global variables
-matrix_settings = ' --led-cols=64 --led-rows=64 --led-chain=4 --led-parallel=2 --led-pwm-bits=6 --led-slowdown-gpio=8' \
-                  ' --led-pwm-lsb-nanoseconds=100 -f ../fonts/PETERS_FONTS/joystix_17.bdf --led-brightness=80 '
+matrix_settings = ' --led-cols=64 --led-rows=64 --led-chain=4 --led-parallel=2 --led-pwm-bits=7 --led-slowdown-gpio=8' \
+                  ' --led-pwm-lsb-nanoseconds=105 -f ../fonts/PETERS_FONTS/joystix_17.bdf --led-brightness=75 '
 clock_position = 'I:%M:%S_%p -x15 -y27'
 
 led_example_directory_path = '/home/pi/Matrix/ArduinoOnPc-FastLED-GFX-LEDMatrix/rpi-rgb-led-matrix/examples-api-use'
 text_cmd = 'scrolling-text-example'
+
+# log file config
+log.basicConfig(filename='led-clock.log', level=log.DEBUG)
 
 
 class Bash:
@@ -72,6 +76,11 @@ class Bash:
     @staticmethod
     def two_commands(one, two):
         call('{} > /dev/null 2>&1 ; {} > /dev/null 2>&1'.format(one, two), cwd=led_example_directory_path, shell=True)
+
+    @staticmethod
+    def system_log(descrip):
+        popen('/home/pi/.pyenv/versions/3.9.4/bin/python /home/pi/Dev/logging_test.py \'from matrix program --> {}\''
+              .format(descrip))
 
     def kill_matrix(self):
         self._call(self.stop_matrix)
@@ -147,6 +156,8 @@ class Clock(Bash):
         self.set_clock('-C 115,50,122 --led-brightness=30 ')
         self.set_sleep_till_hour()
 
+        self.nightClock = False
+
     def set_sleep(self):
         # process start time
         start_secs = self.minute * 60 + self.second
@@ -167,6 +178,7 @@ class Clock(Bash):
         if till_hour < 0:
             till_hour = 24 - self.hour + self.target_hour - 1
 
+        # (x * seconds in hrs) + ((minutes in hour - remaining minutes) * total seconds) = TOTAL SECONDS
         sleep_secs = (till_hour * 3600) + ((60 - self.minute) * 60)
         sleep(sleep_secs)
 
@@ -344,10 +356,18 @@ def kill_power():
     exit()
 
 
+# def write_to_log(state, level):
+#    logging_info = 'logging.{}({})'.format(level, state)
+# def print_log(state):
+#    stdout.write(state)
+
+
 def main():
     terminate = Terminate()
     while not terminate.received:
         try:
+            log.info('started program')
+            Bash.system_log('main function')
             clock = Clock()
             clock.run_clock()
         except TypeError:
